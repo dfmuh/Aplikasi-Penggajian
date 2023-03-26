@@ -30,10 +30,10 @@
 
 				<div class="form-group">
 					<label>Jenis Kelamin</label>
-					<select name="jenis_kelamin" class="form-control" value="<?php echo $p->id_karyawan ?>">
+					<select name="jenis_kelamin" class="form-control" value="<?php echo $p->jenis_kelamin ?>">
+						<?php $jk = ($p->jenis_kelamin == "Laki-Laki") ? "Perempuan" : "Laki-Laki"; ?>
 						<option value="<?php echo $p->jenis_kelamin ?>"><?php echo $p->jenis_kelamin ?></option>
-						<option value="Laki-Laki">Laki-Laki</option>
-						<option value="Perempuan">Perempuan</option>
+						<option value="<?php echo $jk ?>"><?php echo $jk ?></option>
 					</select>
 					<?php echo form_error('jenis_kelamin', '<div class="text-small text-danger"> </div>') ?>
 				</div>
@@ -57,9 +57,9 @@
 				<div class="form-group">
 					<label>Status</label>
 					<select name="status" class="form-control">
+						<?php $status = ($p->status == "Karyawan Tetap") ? "Karyawan Tidak Tetap" : "Karyawan Tetap"; ?>
 						<option value="<?php echo $p->status ?>"><?php echo $p->status ?></option>
-						<option value="Karyawan Tetap">Karyawan Tetap</option>
-						<option value="Karyawan Tidak Tetap">Karyawan Tidak Tetap</option>
+						<option value="<?php echo $status ?>"><?php echo $status ?></option>
 					</select>
 					<?php echo form_error('status', '<div class="text-small text-danger"> </div>') ?>
 				</div>
