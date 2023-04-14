@@ -32,11 +32,13 @@ class Login extends CI_Controller
 				$this->session->set_userdata('nip', $cek->nip);
 				switch ($cek->hak_akses) {
 					case 1:
-						redirect('admin/dashboard');
-						break;
-					case 2:
 						redirect('direktur/dashboard');
 						break;
+					case 2:
+						redirect('admin/dashboard');
+						break;
+					case 3:
+						redirect('karyawan/Dashboard');
 					default:
 						break;
 				}

@@ -16,34 +16,26 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('direktur/dashboard') ?>">
+        <a class="nav-link" href="<?php echo base_url('karyawan/dashboard') ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-copy"></i>
-          <span>Laporan</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url('direktur/data_karyawan') ?>">Data Karyawan</a>
-            <a class="collapse-item" href="<?php echo base_url('direktur/data_penggajian') ?>">Data Gaji</a>
-            <a class="collapse-item" href="<?php echo base_url('direktur/data_absensi') ?>">Data Absensi</a>
-          </div>
-        </div>
+        <a class="nav-link" href="<?php echo base_url('karyawan/data_gaji') ?>">
+          <i class="fas fa-fw fa-money-check-alt"></i>
+          <span>Data Gaji</span></a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('direktur/absensi') ?>">
+        <a class="nav-link" href="<?php echo base_url('karyawan/absensi') ?>">
           <i class="fas fa-clipboard-list"></i>
           <span>Absensi</span></a>
       </li>
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('direktur/ganti_password') ?>">
+        <a class="nav-link" href="<?php echo base_url('karyawan/ganti_password') ?>">
           <i class="fas fa-fw fa-lock"></i>
           <span>Ubah Password</span></a>
       </li>

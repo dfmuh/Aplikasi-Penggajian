@@ -64,6 +64,15 @@
 					<?php echo form_error('status', '<div class="text-small text-danger"> </div>') ?>
 				</div>
 
+				<div class="form-group">
+					<label>Hak Akses</label>
+					<select name="hak_akses" class="form-control">
+						<option value="1" <?php if ($p->hak_akses == '1') echo 'selected'; ?>>Direktur</option>
+						<option value="2" <?php if ($p->hak_akses == '2') echo 'selected'; ?>>Admin</option>
+						<option value="3" <?php if ($p->hak_akses == '3') echo 'selected'; ?>>Karyawan</option>
+					</select>
+				</div>
+
 				<button type="submit" class="btn btn-success">Simpan</button>
 				<a href="<?php echo base_url('admin/data_karyawan') ?>" class="btn btn-warning">Kembali</a>
 

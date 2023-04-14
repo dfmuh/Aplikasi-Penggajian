@@ -35,6 +35,19 @@
         </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTri" aria-expanded="true" aria-controls="collapseTri">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Absensi</span>
+        </a>
+        <div id="collapseTri" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url('admin/absensi') ?>">Absensi</a>
+            <a class="collapse-item" href="<?php echo base_url('admin/data_absensi') ?>">Data Absensi</a>
+          </div>
+        </div>
+      </li>
+
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">

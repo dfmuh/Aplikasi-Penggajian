@@ -89,7 +89,7 @@
 				</td>
 
 				<td width="200px">
-					<p>Palembang, <?php echo date("d M Y") ?> <br> Admin,</p>
+					<p>Palembang, <?php echo date("d M Y") ?> <br> Direktur,</p>
 					<br>
 					<br>
 					<p>___________________</p>

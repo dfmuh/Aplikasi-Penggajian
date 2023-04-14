@@ -24,7 +24,7 @@
 			<td><?php echo $bulan ?></td>
 		</tr>
 		<tr>
-			<td>Tahunn</td>
+			<td>Tahun</td>
 			<td>:</td>
 			<td><?php echo $tahun ?></td>
 		</tr>
@@ -61,7 +61,7 @@
 		<tr>
 			<td></td>
 			<td width="200px">
-				<p>Palembang, <?php echo date("d M Y") ?> <br> Admin</p>
+				<p>Palembang, <?php echo date("d M Y") ?> <br> Direktur</p>
 				<br>
 				<br>
 				<p>_____________________</p>

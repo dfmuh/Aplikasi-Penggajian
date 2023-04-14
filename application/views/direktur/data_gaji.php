@@ -83,27 +83,48 @@ if ($jml_data > 0) { ?>
 								<th class="text-center">No</th>
 								<th class="text-center">NIP</th>
 								<th class="text-center">Nama Karyawan</th>
-								<th class="text-center">Jenis Kelamin</th>
 								<th class="text-center">Jabatan</th>
 								<th class="text-center">GajI Pokok</th>
 								<th class="text-center">Tj. Penugasan</th>
 								<th class="text-center">Uang Makan</th>
 								<th class="text-center">Total Gaji</th>
+								<th class="text-center">Status Bayar</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php $no = 1;
-							foreach ($gaji as $g) : ?>
+							foreach ($gaji as $g) :
+								$makan = $g->uang_makan * $g->hadir ?>
+
 								<tr>
 									<td class="text-center"><?php echo $no++ ?></td>
 									<td class="text-center"><?php echo $g->nip ?></td>
 									<td class="text-center"><?php echo $g->nama_karyawan ?></td>
-									<td class="text-center"><?php echo $g->jenis_kelamin ?></td>
 									<td class="text-center"><?php echo $g->nama_jabatan ?></td>
 									<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok, 0, ',', '.') ?></td>
 									<td class="text-center">Rp. <?php echo number_format($g->tj_penugasan, 0, ',', '.') ?></td>
-									<td class="text-center">Rp. <?php echo number_format($g->uang_makan, 0, ',', '.') ?></td>
-									<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok + $g->tj_penugasan + $g->uang_makan, 0, ',', '.') ?></td>
+									<td class="text-center">Rp. <?php echo number_format($makan, 0, ',', '.') ?></td>
+									<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok + $g->tj_penugasan + $makan, 0, ',', '.') ?></td>
+									<td class="text-center">
+										<?php
+										$hasMinusSquare = false; // Variabel untuk melacak apakah ikon minus-square sudah ditampilkan
+
+										foreach ($cek as $c) :
+											if ($c->nip == $g->nip && $bulan == $c->bulan && $tahun == $c->tahun) {
+												$hasMinusSquare = true; // Set variabel hasMinusSquare menjadi true jika data sudah ada
+												break; // Keluar dari loop jika data sudah ditemukan
+											}
+										endforeach;
+
+										if ($hasMinusSquare) { // Jika data sudah ada
+											echo '<i class="fas fa-check"></i>'; // Tampilkan ikon check
+										} else { // Jika data belum ada
+											echo '<span class="fas fa-minus-square"></span>';
+										}
+										?>
+
+
+									</td>
 								</tr>
 								</tr>
 							<?php endforeach; ?>

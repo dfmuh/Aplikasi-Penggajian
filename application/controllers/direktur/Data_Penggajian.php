@@ -7,15 +7,15 @@ class Data_Penggajian extends CI_Controller
 	{
 		parent::__construct();
 
-		// if ($this->session->userdata('hak_akses') != '1') {
-		// 	$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		// 		<strong>Anda Belum Login!</strong>
-		// 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		// 		<span aria-hidden="true">&times;</span>
-		// 		</button>
-		// 		</div>');
-		// 	redirect('login');
-		// }
+		if ($this->session->userdata('hak_akses') != '1') {
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Anda Belum Login!</strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+				</div>');
+			redirect('login');
+		}
 	}
 
 	public function index()
@@ -28,12 +28,33 @@ class Data_Penggajian extends CI_Controller
 			$bulan = date('m');
 			$tahun = date('Y');
 		}
-		$data['gaji'] = $this->db->query("SELECT data_karyawan.nip,data_karyawan.nama_karyawan,
-			data_karyawan.jenis_kelamin,data_jabatan.nama_jabatan,data_jabatan.gaji_pokok,
-			data_jabatan.tj_penugasan,data_jabatan.uang_makan FROM data_karyawan
-			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_karyawan.jabatan
-			WHERE DATEDIFF('$tahun-$bulan-01', data_karyawan.tanggal_masuk) > 30
-			ORDER BY data_karyawan.nama_karyawan ASC")->result();
+
+		$bulan_sebelumnya = $bulan - 1;
+
+		$gaji = $this->db->query("SELECT data_karyawan.nip, data_karyawan.nama_karyawan, data_jabatan.nama_jabatan, data_jabatan.gaji_pokok, data_jabatan.tj_penugasan, data_jabatan.uang_makan, data_absensi.hadir, data_karyawan.tanggal_masuk
+    FROM data_karyawan
+    INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_karyawan.jabatan
+    INNER JOIN data_absensi ON data_absensi.nip=data_karyawan.nip
+    WHERE data_absensi.bulan = '$bulan_sebelumnya' AND data_absensi.tahun = '$tahun'
+    ORDER BY data_karyawan.nama_karyawan ASC")->result();
+
+		$today = date('Y-m-d');
+
+		foreach ($gaji as $g) {
+			$tanggal_masuk = new DateTime($g->tanggal_masuk);
+			$tanggal_1 = new DateTime($tahun . '-' . $bulan . '-01');
+			$selisih = $tanggal_1->diff($tanggal_masuk)->format('%a');
+			if ($selisih < 15 && $g->hadir <= 15) {
+				$g->gaji_pokok *= 0.5;
+				$g->tj_penugasan *= 0.5;
+				$g->uang_makan *= 0.5;
+			}
+		}
+
+		$data['gaji'] = $gaji;
+
+		$data['cek'] = $this->db->query("SELECT nip, bulan, tahun FROM data_gaji")->result();
+
 		$this->load->view('template_direktur/header', $data);
 		$this->load->view('template_direktur/sidebar');
 		$this->load->view('direktur/data_gaji', $data);

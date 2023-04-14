@@ -7,15 +7,15 @@ class Data_Karyawan extends CI_Controller
 	{
 		parent::__construct();
 
-		// if($this->session->userdata('hak_akses') != '1'){
-		// 	$this->session->set_flashdata('pesan','<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		// 		<strong>Anda Belum Login!</strong>
-		// 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		// 		<span aria-hidden="true">&times;</span>
-		// 		</button>
-		// 		</div>');
-		// 		redirect('login');
-		// }
+		if ($this->session->userdata('hak_akses') != '2') {
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Anda Belum Login!</strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+				</div>');
+			redirect('login');
+		}
 	}
 
 	public function index()
@@ -49,18 +49,39 @@ class Data_Karyawan extends CI_Controller
 		} else {
 			$nip			= $this->input->post('nip');
 			$nama_karyawan	= $this->input->post('nama_karyawan');
+			$username		= $this->input->post('username');
+			$password		= md5($this->input->post('password'));
 			$jenis_kelamin	= $this->input->post('jenis_kelamin');
 			$jabatan		= $this->input->post('jabatan');
 			$tanggal_masuk	= $this->input->post('tanggal_masuk');
 			$status			= $this->input->post('status');
+			$hak_akses		= $this->input->post('hak_akses');
+			$photo			= $_FILES['photo']['name'];
+			if ($photo = '') {
+			} else {
+				$config['upload_path'] 		= './photo';
+				$config['allowed_types'] 	= 'jpg|jpeg|png|tiff';
+				$config['max_size']			= 	2048;
+				$config['file_name']		= 	'karyawan-' . date('ymd') . '-' . substr(md5(rand()), 0, 10);
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload('photo')) {
+					echo "Photo Gagal Diupload !";
+				} else {
+					$photo = $this->upload->data('file_name');
+				}
+			}
 
 			$data = array(
 				'nip' 			=> $nip,
 				'nama_karyawan' 	=> $nama_karyawan,
+				'username' 		=> $username,
+				'password' 		=> $password,
 				'jenis_kelamin' => $jenis_kelamin,
 				'jabatan' 		=> $jabatan,
 				'tanggal_masuk' => $tanggal_masuk,
 				'status' 		=> $status,
+				'hak_akses' 	=> $hak_akses,
+				'photo' 		=> $photo,
 			);
 
 			$this->ModelPenggajian->insert_data($data, 'data_karyawan');
@@ -101,6 +122,7 @@ class Data_Karyawan extends CI_Controller
 			$jabatan		= $this->input->post('jabatan');
 			$tanggal_masuk	= $this->input->post('tanggal_masuk');
 			$status			= $this->input->post('status');
+			$hak_akses		= $this->input->post('hak_akses');
 
 			$data = array(
 				'nip' 			=> $nip,
@@ -109,6 +131,7 @@ class Data_Karyawan extends CI_Controller
 				'jabatan' 		=> $jabatan,
 				'tanggal_masuk' => $tanggal_masuk,
 				'status' 		=> $status,
+				'hak_akses' 	=> $hak_akses,
 			);
 
 			$where = array(

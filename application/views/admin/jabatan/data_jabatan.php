@@ -18,7 +18,6 @@
               <th class="text-center">Gaji Pokok</th>
               <th class="text-center">Tunjangan Penugasan</th>
               <th class="text-center">Uang Makan</th>
-              <th class="text-center">Total</th>
               <th class="text-center">Actions</th>
             </tr>
           </thead>
@@ -31,8 +30,6 @@
                 <td class="text-center">Rp. <?php echo number_format($j->gaji_pokok, 0, ',', '.') ?></td>
                 <td class="text-center">Rp. <?php echo number_format($j->tj_penugasan, 0, ',', '.') ?></td>
                 <td class="text-center">Rp. <?php echo number_format($j->uang_makan, 0, ',', '.') ?></td>
-                <td class="text-center">Rp. <?php echo number_format($j->gaji_pokok + $j->tj_penugasan + $j->uang_makan, 0, ',', '.') ?></td>
-
                 <td>
                   <center>
                     <a class="btn btn-sm btn-info" href="<?php echo base_url('admin/data_jabatan/update_data/' . $j->id_jabatan) ?>"><i class="fas fa-edit"></i></a>
