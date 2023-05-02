@@ -92,42 +92,45 @@ if ($jml_data > 0) { ?>
 							</tr>
 						</thead>
 						<tbody>
-							<?php $no = 1;
+							<?php
+							$no = 1;
 							foreach ($gaji as $g) :
-								$makan = $g->uang_makan * $g->hadir ?>
+								$isExist = false;
+								foreach ($cek as $c) :
+									if ($c->nip == $g->nip && $bulan == $c->bulan && $tahun == $c->tahun) {
+										$isExist = true; // Mengubah variabel $hasMinusSquare menjadi $isExist
+										break; // Keluar dari loop jika data sudah ditemukan
+									}
+								endforeach;
 
-								<tr>
-									<td class="text-center"><?php echo $no++ ?></td>
-									<td class="text-center"><?php echo $g->nip ?></td>
-									<td class="text-center"><?php echo $g->nama_karyawan ?></td>
-									<td class="text-center"><?php echo $g->nama_jabatan ?></td>
-									<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok, 0, ',', '.') ?></td>
-									<td class="text-center">Rp. <?php echo number_format($g->tj_penugasan, 0, ',', '.') ?></td>
-									<td class="text-center">Rp. <?php echo number_format($makan, 0, ',', '.') ?></td>
-									<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok + $g->tj_penugasan + $makan, 0, ',', '.') ?></td>
-									<td class="text-center">
-										<?php
-										$hasMinusSquare = false; // Variabel untuk melacak apakah ikon minus-square sudah ditampilkan
-
-										foreach ($cek as $c) :
-											if ($c->nip == $g->nip && $bulan == $c->bulan && $tahun == $c->tahun) {
-												$hasMinusSquare = true; // Set variabel hasMinusSquare menjadi true jika data sudah ada
-												break; // Keluar dari loop jika data sudah ditemukan
-											}
-										endforeach;
-
-										if ($hasMinusSquare) { // Jika data sudah ada
-											echo '<i class="fas fa-check"></i>'; // Tampilkan ikon check
-										} else { // Jika data belum ada
-											echo '<span class="fas fa-minus-square"></span>';
-										}
-										?>
-
-
-									</td>
-								</tr>
-								</tr>
-							<?php endforeach; ?>
+								if ($isExist) { ?>
+									<tr>
+										<td class="text-center"><?php echo $no++ ?></td>
+										<td class="text-center"><?php echo $g->nip ?></td>
+										<td class="text-center"><?php echo $g->nama_karyawan ?></td>
+										<td class="text-center"><?php echo $g->nama_jabatan ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_gaji, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->tj_penugasan_gaji, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->uang_makan_gaji, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_gaji + $g->tj_penugasan_gaji + $g->uang_makan_gaji, 0, ',', '.') ?></td>
+										<td class="text-center"><i class="fas fa-check"></i></td>
+									</tr>
+								<?php } else {
+									$makan = $g->uang_makan_jabatan * $g->hadir;
+								?>
+									<tr>
+										<td class="text-center"><?php echo $no++ ?></td>
+										<td class="text-center"><?php echo $g->nip ?></td>
+										<td class="text-center"><?php echo $g->nama_karyawan ?></td>
+										<td class="text-center"><?php echo $g->nama_jabatan ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_jabatan, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->tj_penugasan_jabatan, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($makan, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_jabatan + $g->tj_penugasan_jabatan + $makan, 0, ',', '.') ?></td>
+										<td class="text-center"><span class="fas fa-minus-square"></span></td>
+									</tr>
+							<?php }
+							endforeach; ?>
 						</tbody>
 					</table>
 				</div>

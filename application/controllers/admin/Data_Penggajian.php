@@ -31,12 +31,13 @@ class Data_Penggajian extends CI_Controller
 
 		$bulan_sebelumnya = $bulan - 1;
 
-		$gaji = $this->db->query("SELECT data_karyawan.nip, data_karyawan.nama_karyawan, data_jabatan.nama_jabatan, data_jabatan.gaji_pokok, data_jabatan.tj_penugasan, data_jabatan.uang_makan, data_absensi.hadir, data_karyawan.tanggal_masuk
-    FROM data_karyawan
-    INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_karyawan.jabatan
-    INNER JOIN data_absensi ON data_absensi.nip=data_karyawan.nip
-    WHERE data_absensi.bulan = '$bulan_sebelumnya' AND data_absensi.tahun = '$tahun'
-    ORDER BY data_karyawan.nama_karyawan ASC")->result();
+		$gaji = $this->db->query("SELECT data_karyawan.nip, data_karyawan.nama_karyawan, data_jabatan.nama_jabatan, data_jabatan.gaji_pokok AS gaji_pokok_jabatan, data_jabatan.tj_penugasan AS tj_penugasan_jabatan, data_jabatan.uang_makan AS uang_makan_jabatan, data_gaji.gaji_pokok AS gaji_pokok_gaji, data_gaji.tj_penugasan AS tj_penugasan_gaji, data_gaji.uang_makan AS uang_makan_gaji, data_absensi.hadir, data_karyawan.tanggal_masuk
+			FROM data_karyawan
+			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_karyawan.jabatan
+			INNER JOIN data_absensi ON data_absensi.nip=data_karyawan.nip
+			LEFT JOIN data_gaji ON data_gaji.nip=data_karyawan.nip AND data_gaji.bulan = '$bulan' AND data_gaji.tahun = '$tahun'
+			WHERE data_absensi.bulan = '$bulan_sebelumnya' AND data_absensi.tahun = '$tahun'
+			ORDER BY data_karyawan.nama_karyawan ASC")->result();
 
 		$data['gaji'] = $gaji;
 
