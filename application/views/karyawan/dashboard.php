@@ -28,6 +28,12 @@
 							</tr>
 
 							<tr>
+								<td>NIP</td>
+								<td>:</td>
+								<td><?php echo $p->nip ?></td>
+							</tr>
+
+							<tr>
 								<td>Jabatan</td>
 								<td>:</td>
 								<td><?php echo $p->jabatan ?></td>

@@ -84,9 +84,11 @@ if ($jml_data > 0) { ?>
 								<th class="text-center">NIP</th>
 								<th class="text-center">Nama Karyawan</th>
 								<th class="text-center">Jabatan</th>
-								<th class="text-center">GajI Pokok</th>
+								<th class="text-center">Gaji Pokok</th>
 								<th class="text-center">Tj. Penugasan</th>
 								<th class="text-center">Uang Makan</th>
+								<th class="text-center">Pajak</th>
+								<th class="text-center">BPJS</th>
 								<th class="text-center">Total Gaji</th>
 								<th class="text-center">Status Bayar</th>
 							</tr>
@@ -103,7 +105,15 @@ if ($jml_data > 0) { ?>
 									}
 								endforeach;
 
-								if ($isExist) { ?>
+								if ($isExist) {
+									if ($g->gaji_pokok_gaji > 5000000) {
+										$pajak  = $g->gaji_pokok_gaji * 0.15;
+									} else {
+										$pajak  = $g->gaji_pokok_gaji * 0.05;
+									}
+
+									$bpjs = $g->gaji_pokok_gaji * 0.01;
+							?>
 									<tr>
 										<td class="text-center"><?php echo $no++ ?></td>
 										<td class="text-center"><?php echo $g->nip ?></td>
@@ -112,11 +122,19 @@ if ($jml_data > 0) { ?>
 										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_gaji, 0, ',', '.') ?></td>
 										<td class="text-center">Rp. <?php echo number_format($g->tj_penugasan_gaji, 0, ',', '.') ?></td>
 										<td class="text-center">Rp. <?php echo number_format($g->uang_makan_gaji, 0, ',', '.') ?></td>
-										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_gaji + $g->tj_penugasan_gaji + $g->uang_makan_gaji, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($pajak, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($bpjs, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_gaji + $g->tj_penugasan_gaji + $g->uang_makan_gaji - $pajak - $bpjs, 0, ',', '.') ?></td>
 										<td class="text-center"><i class="fas fa-check"></i></td>
 									</tr>
 								<?php } else {
 									$makan = $g->uang_makan_jabatan * $g->hadir;
+									if ($g->gaji_pokok_jabatan > 5000000) {
+										$pajak  = $g->gaji_pokok_jabatan * 0.15;
+									} else {
+										$pajak  = $g->gaji_pokok_jabatan * 0.05;
+									}
+									$bpjs = $g->gaji_pokok_jabatan * 0.01;
 								?>
 									<tr>
 										<td class="text-center"><?php echo $no++ ?></td>
@@ -126,9 +144,11 @@ if ($jml_data > 0) { ?>
 										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_jabatan, 0, ',', '.') ?></td>
 										<td class="text-center">Rp. <?php echo number_format($g->tj_penugasan_jabatan, 0, ',', '.') ?></td>
 										<td class="text-center">Rp. <?php echo number_format($makan, 0, ',', '.') ?></td>
-										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_jabatan + $g->tj_penugasan_jabatan + $makan, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($pajak, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($bpjs, 0, ',', '.') ?></td>
+										<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok_jabatan + $g->tj_penugasan_jabatan + $makan - $pajak - $bpjs, 0, ',', '.') ?></td>
 										<td class="text-center">
-											<a href="<?php echo site_url('admin/data_penggajian/edit_status/' . $bulan . '/' . $tahun . '/' . $g->nip . '/' . $g->gaji_pokok_jabatan . '/' . $g->tj_penugasan_jabatan . '/' . $makan); ?>">
+											<a href="<?php echo site_url('admin/data_penggajian/edit_status/' . $bulan . '/' . $tahun . '/' . $g->nip . '/' . $g->gaji_pokok_jabatan . '/' . $g->tj_penugasan_jabatan . '/' . $makan . '/' . $pajak . '/' . $bpjs); ?>">
 												<span class="fas fa-minus-square"></span>
 											</a>
 										</td>

@@ -24,7 +24,7 @@ class Data_Gaji extends CI_Controller
 		$year = date('Y'); // Mendapatkan tahun saat ini
 
 		$data['gaji'] = $this->db->query("SELECT data_karyawan.nama_karyawan, data_karyawan.nip,
-			data_gaji.gaji_pokok, data_gaji.tj_penugasan, data_gaji.uang_makan, data_gaji.bulan, data_gaji.tahun
+			data_gaji.gaji_pokok, data_gaji.tj_penugasan, data_gaji.uang_makan, data_gaji.pajak, data_gaji.bpjs, data_gaji.bulan, data_gaji.tahun
 			FROM data_karyawan
 			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan = data_karyawan.jabatan
 			INNER JOIN data_gaji ON data_gaji.nip = data_karyawan.nip

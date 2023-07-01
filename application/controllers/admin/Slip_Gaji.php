@@ -39,7 +39,7 @@ class Slip_Gaji extends CI_Controller
 		$data['tahun'] = $tahun;
 
 		$data['print_slip'] = $this->db->query("SELECT data_karyawan.nip, data_karyawan.nama_karyawan,
-			data_jabatan.nama_jabatan, data_gaji.gaji_pokok, data_gaji.tj_penugasan, data_gaji.uang_makan
+			data_jabatan.nama_jabatan, data_gaji.gaji_pokok, data_gaji.tj_penugasan, data_gaji.uang_makan, data_gaji.pajak, data_gaji.bpjs
 			FROM data_karyawan
 			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_karyawan.jabatan
 			INNER JOIN data_gaji ON data_gaji.nip=data_karyawan.nip

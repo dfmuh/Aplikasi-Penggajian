@@ -15,9 +15,10 @@
 
 			<div class="form-group">
 				<label>NIP</label>
-				<input type="number" name="nip" class="form-control">
+				<input type="number" name="nip" id="nip-input" class="form-control">
 				<?php echo form_error('nip', '<div class="text-small text-danger"> </div>') ?>
 			</div>
+
 
 			<div class="form-group">
 				<label>Nama Karyawan</label>
@@ -96,3 +97,11 @@
 		</form>
 	</div>
 </div>
+
+<script>
+	document.getElementById('nip-input').addEventListener('input', function() {
+		if (this.value.length > 7) {
+			this.value = this.value.slice(0, 7);
+		}
+	});
+</script>

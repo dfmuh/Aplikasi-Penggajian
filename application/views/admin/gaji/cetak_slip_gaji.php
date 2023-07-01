@@ -73,8 +73,20 @@
 			</tr>
 
 			<tr>
-				<th colspan="2" style="text-align: right;">Total Gaji : </th>
-				<th>Rp. <?php echo number_format($ps->gaji_pokok + $ps->tj_penugasan + $ps->uang_makan, 0, ',', '.') ?></th>
+				<td>4</td>
+				<td>Pajak</td>
+				<td>Rp. <?php echo number_format($ps->pajak, 0, ',', '.') ?></td>
+			</tr>
+
+			<tr>
+				<td>5</td>
+				<td>BPJS</td>
+				<td>Rp. <?php echo number_format($ps->bpjs, 0, ',', '.') ?></td>
+			</tr>
+
+			<tr>
+				<th colspan="2" style="text-align: left;">Total Gaji : </th>
+				<th>Rp. <?php echo number_format($ps->gaji_pokok + $ps->tj_penugasan + $ps->uang_makan - $ps->pajak - $ps->bpjs, 0, ',', '.') ?></th>
 			</tr>
 		</table>
 

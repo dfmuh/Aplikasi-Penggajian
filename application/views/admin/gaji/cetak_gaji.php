@@ -36,9 +36,11 @@
 			<th class="text-center">Nama Karyawan</th>
 			<th class="text-center">Jenis Kelamin</th>
 			<th class="text-center">Jabatan</th>
-			<th class="text-center">GajI Pokok</th>
+			<th class="text-center">Gaji Pokok</th>
 			<th class="text-center">Tj. Penugasan</th>
 			<th class="text-center">Uang Makan</th>
+			<th class="text-center">Pajak</th>
+			<th class="text-center">BPJS</th>
 			<th class="text-center">Total Gaji</th>
 		</tr>
 		<?php $no = 1;
@@ -52,7 +54,9 @@
 				<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok, 0, ',', '.') ?></td>
 				<td class="text-center">Rp. <?php echo number_format($g->tj_penugasan, 0, ',', '.') ?></td>
 				<td class="text-center">Rp. <?php echo number_format($g->uang_makan, 0, ',', '.') ?></td>
-				<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok + $g->tj_penugasan + $g->uang_makan, 0, ',', '.') ?></td>
+				<td class="text-center">Rp. <?php echo number_format($g->pajak, 0, ',', '.') ?></td>
+				<td class="text-center">Rp. <?php echo number_format($g->bpjs, 0, ',', '.') ?></td>
+				<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok + $g->tj_penugasan + $g->uang_makan - $g->pajak - $g->bpjs, 0, ',', '.') ?></td>
 			</tr>
 		<?php endforeach; ?>
 	</table>

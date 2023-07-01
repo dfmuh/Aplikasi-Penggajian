@@ -40,7 +40,7 @@ class Laporan_Gaji extends CI_Controller
 		// Mengambil data gaji berdasarkan nip, bulan, dan tahun
 		$data['cetak_gaji'] = $this->db->query("SELECT data_gaji.nip, data_karyawan.nama_karyawan,
 			data_karyawan.jenis_kelamin, data_jabatan.nama_jabatan, data_gaji.gaji_pokok,
-			data_gaji.tj_penugasan, data_gaji.uang_makan FROM data_gaji
+			data_gaji.tj_penugasan, data_gaji.uang_makan, data_gaji.pajak, data_gaji.bpjs FROM data_gaji
 			INNER JOIN data_karyawan ON data_gaji.nip = data_karyawan.nip
 			INNER JOIN data_jabatan ON data_karyawan.jabatan = data_jabatan.nama_jabatan
 			WHERE data_gaji.bulan = '$bulan' AND data_gaji.tahun = '$tahun'

@@ -74,7 +74,7 @@ class Data_Penggajian extends CI_Controller
 		$this->load->view('admin/gaji/cetak_gaji', $data);
 	}
 
-	public function edit_status($bulan, $tahun, $nip, $gaji_pokok, $tj_penugasan, $uang_makan)
+	public function edit_status($bulan, $tahun, $nip, $gaji_pokok, $tj_penugasan, $uang_makan, $pajak, $bpjs)
 	{
 		$data = array(
 			'bulan' => $bulan,
@@ -82,7 +82,9 @@ class Data_Penggajian extends CI_Controller
 			'nip' => $nip,
 			'gaji_pokok' => $gaji_pokok,
 			'tj_penugasan' => $tj_penugasan,
-			'uang_makan' => $uang_makan
+			'uang_makan' => $uang_makan,
+			'pajak' => $pajak,
+			'bpjs' => $bpjs
 		);
 
 		$this->ModelPenggajian->insert_data($data, 'data_gaji');
